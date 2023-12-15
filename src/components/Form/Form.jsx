@@ -4,14 +4,14 @@ import shortid from 'shortid';
 import css from './Form.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/asynkSunks';
-import { getContacts } from 'redux/Selectors';
+import { selectContacts } from '../../redux/Selectors';
 import { toast } from 'react-toastify';
 
 export const Form = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
 
   const onSubmitBtn = e => {
     e.preventDefault();

@@ -2,24 +2,16 @@ import React, { useMemo } from 'react';
 import css from './Contacts.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteContact } from '../../redux/asynkSunks';
-import { getContacts, getFilter } from 'redux/Selectors';
+import { filteredTasks } from '../../redux/Selectors';
 
 export const Contacts = () => {
-  const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
-  const filter = useSelector(getFilter);
 
-  const filteredContacts = useMemo(
-    () =>
-      contacts.filter(({ name }) =>
-        name.toLowerCase().includes(filter.toLowerCase())
-      ),
-    [contacts, filter]
-  );
+  const filterTasks = useSelector(filteredTasks);
 
   return (
     <ul className={css.delete__list}>
-      {filteredContacts.map(({ id, name, number }) => (
+      {filterTasks.map(({ id, name, number }) => (
         <li className={css.delete__item} key={id}>
           <span className={css.delete__userName}>
             {name} : {number}

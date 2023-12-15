@@ -3,10 +3,10 @@ import React from 'react';
 import css from './Filter.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { fillFilter } from 'redux/filterSlice';
-import { getFilter } from 'redux/Selectors';
+import { selectFilter } from '../../redux/Selectors';
 
 export const Filter = () => {
-  const filter = useSelector(getFilter);
+  const filter = useSelector(selectFilter);
   const dispatch = useDispatch();
 
   return (
