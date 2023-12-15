@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-
 import css from './Contacts.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteContact } from '../../redux/asynkSunks';
@@ -7,7 +6,6 @@ import { getContacts, getFilter } from 'redux/Selectors';
 
 export const Contacts = () => {
   const contacts = useSelector(getContacts);
-
   const dispatch = useDispatch();
   const filter = useSelector(getFilter);
 

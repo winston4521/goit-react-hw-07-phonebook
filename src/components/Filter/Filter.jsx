@@ -3,9 +3,10 @@ import React from 'react';
 import css from './Filter.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { fillFilter } from 'redux/filterSlice';
+import { getFilter } from 'redux/Selectors';
 
 export const Filter = () => {
-  const filter = useSelector(state => state.filter);
+  const filter = useSelector(getFilter);
   const dispatch = useDispatch();
 
   return (
@@ -17,7 +18,9 @@ export const Filter = () => {
           type="text"
           name="search"
           value={filter}
-          onChange={({ target }) => dispatch(fillFilter(target.value))}
+          onChange={({ target }) => {
+            dispatch(fillFilter(target.value));
+          }}
         />
       </label>
     </>

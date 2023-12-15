@@ -2,29 +2,16 @@ import { useState } from 'react';
 import shortid from 'shortid';
 
 import css from './Form.module.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/asynkSunks';
+import { getContacts } from 'redux/Selectors';
+import { toast } from 'react-toastify';
 
 export const Form = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const dispatch = useDispatch();
-
-  const handlEValues = e => {
-    const { name, value } = e.target;
-
-    switch (name) {
-      case 'name':
-        setName(value);
-        break;
-
-      case 'number':
-        setNumber(value);
-        break;
-      default:
-        return;
-    }
-  };
+  const contacts = useSelector(getContacts);
 
   const onSubmitBtn = e => {
     e.preventDefault();
@@ -35,7 +22,12 @@ export const Form = () => {
       number,
     };
 
+    if (contacts.find(({ name }) => name.includes(newContact.name))) {
+      reset();
+      return toast.error(`${newContact.name} is already in contacts`);
+    }
     dispatch(addContact(newContact));
+
     reset();
   };
 
@@ -55,7 +47,9 @@ export const Form = () => {
           name="name"
           required
           value={name}
-          onChange={handlEValues}
+          onChange={({ target }) => {
+            setName(target.value);
+          }}
         />
       </label>
       <label className={css.form__label}>
@@ -67,7 +61,9 @@ export const Form = () => {
           name="number"
           required
           value={number}
-          onChange={handlEValues}
+          onChange={({ target }) => {
+            setNumber(target.value);
+          }}
         />
       </label>
       <button className={css.form__button} type="submit">
