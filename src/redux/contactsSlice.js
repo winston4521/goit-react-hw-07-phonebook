@@ -7,7 +7,6 @@ const initialState = {
   error: null,
 };
 
-// робимо 2 функції, щоб не дублювати код
 const handlePending = state => {
   return {
     ...state,
@@ -23,7 +22,6 @@ const handleRejected = (state, { payload }) => {
   };
 };
 
-// розбиваємо на 3 функції, щоб не дублювати код
 const handleFetchContactsSuccess = (state, { payload }) => ({
   ...state,
   isLoading: false,
@@ -44,7 +42,6 @@ const handleDeleteContactSuccess = (state, { payload }) => ({
   error: null,
   items: state.items.filter(item => item.id !== payload.id),
 });
-
 
 const contactsSlice = createSlice({
   name: 'contacts',
